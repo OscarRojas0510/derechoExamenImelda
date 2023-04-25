@@ -1,11 +1,9 @@
 .container {
-  background-color: palegreen;
-  align-self: center;
-  height: 90vh;
   margin-top: 5vh;
 }
-.col {
+.colorcol {
+  background-color: orange;
   border: solid white 1px;
-  color: palegreen;
-  height: 18vh;
+  color: black;
+  height: 15vh;
 }
