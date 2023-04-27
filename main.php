@@ -223,7 +223,6 @@
             </div>
         </div>
     </section>
-
     <footer id="footer" class="pb-4 pt-4">
         <div class="container">
             <div class="row text-center">

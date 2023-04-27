@@ -1,0 +1,30 @@
+body {
+  background-color: #d5d8dc;
+  height: 100vh;
+}
+#header {
+  background-color: rgb(139, 69, 19);
+}
+#main {
+  position: absolute;
+  top: 20vh;
+  bottom: 0vh;
+  left: 15vw;
+  right: 15vw;
+}
+.card-body h2 {
+  text-align: center;
+}
+#footer {
+  background: #d7bde2;
+  background: linear-gradient(
+    90deg,
+    rgba(111, 55, 15, 1) 0%,
+    rgba(201, 100, 27, 1) 85%,
+    rgba(230, 136, 69, 1) 100%
+  );
+}
+
+#footer a {
+  color: white;
+}
