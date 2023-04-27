@@ -1,9 +1,47 @@
-.container-fluid {
-  margin-top: 5vh;
+body {
+  background-color: #d5d8dc;
 }
-.colorcol {
-  background-color: #ff7f50;
-  border: solid white 1px;
+#header {
+  background-color: rgb(139, 69, 19);
+}
+#drop {
   color: white;
-  height: 15vh;
+}
+#drop:hover {
+  color: black;
+}
+#main .carousel-inner img {
+  max-height: 70vh;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(60%);
+}
+#carousel {
+  position: relative;
+}
+#carousel .overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(30, 15, 4, 0.5);
+  color: white;
+}
+#carousel .overlay .container-fluid,
+#carousel .overlay .row {
+  height: 100%;
+}
+#footer {
+  background: #d7bde2;
+  background: linear-gradient(
+    90deg,
+    rgba(111, 55, 15, 1) 0%,
+    rgba(201, 100, 27, 1) 85%,
+    rgba(230, 136, 69, 1) 100%
+  );
+}
+
+#footer a {
+  color: white;
 }
