@@ -1,4 +1,5 @@
 <?php
+
 function validarPassword($password){
     $digits = "0123456789";
     $mayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -38,25 +39,35 @@ $mensaje = null;
 
 $data = array(
     'correo' => '',
-    'password' => ''
+    'password' => '',
+    'apellido' => '',
+    'nombre' => ''
 );
 if(isset($_POST['correo']) && isset($_POST['password']))
 {
     $correo = $_POST['correo'];
     $password = $_POST['password'];
+    $apellido = $_POST['apellido'];
+    $nombre = $_POST['nombre'];
 
     $data = array(
         'correo' => $correo ,
-        'password' => ''
+        'password' => '',
+        'apellido' => '',
+        'nombre' => ''
     );
 
     if(isset($_POST['correo']) && isset($_POST['password'])){
     $correo = $_POST['correo'];
     $password = $_POST['password'];
+    $apellido = $_POST['apellido'];
+    $nombre = $_POST['nombre'];
 
     $data = array(
         'correo' => $correo ,
-        'password' => ''
+        'password' => '',
+        'apellido' => '',
+        'nombre' => ''
     );
 
     $validacion = validarPassword($password);
@@ -66,14 +77,16 @@ if(isset($_POST['correo']) && isset($_POST['password']))
         $usuario = $consultas->item("SELECT * from usuarios where correo = '$correo'");
 
         if(is_array($usuario)){
-            $mensaje = array('type' => 'warning', 'msg' => 'Nombre de usuario no disponible');
+            $mensaje = array('type' => 'warning', 'msg' => 'Correo repetido');
         }else{
             $data = array(
                 'correo' => '',
-                'password' => ''
+                'password' => '',
+                'apellido' => '',
+                'nombre' => ''
             );
-            $hashedPassword = crearHash($password);
-            $consultas->query("INSERT INTO usuarios(id_user, apellido, nombre, correo, pass, status) values (0+(SELECT IFNULL(MAX(id_user) + 1,1) FROM usuarios),'$apellidophp','$nombrephp',,'$correo''$hashedPassword', 0)");
+            $text = "INSERT INTO usuarios(id_user, apellido, nombre, correo, pass, status) SELECT COALESCE(MAX(u.id_user)+1, 1),'$apellido','$nombre','$correo','$password', 0 FROM usuarios u";
+            $consultas->query($text);
             $mensaje = array('type' => 'success', 'msg' => 'Usuario registrado exitosamente');
         }
     }else{
@@ -118,26 +131,26 @@ if(isset($_POST['correo']) && isset($_POST['password']))
                     <div class="card" style="height: 100%;">
                         <div class="card-body">
                             <h2>Registro</h2>
-                            <form method="POST" action="index.php" name="registro-formulario">
+                            <form method="POST" action="#" name="registro-formulario">
                                 <div class="form-group row">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Nombre(s)">
+                                        <input type="text" value="<?=$data['nombre'] ?>" name="nombre" class="form-control" placeholder="Nombre(s)">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Apellidos">
+                                        <input type="text" value="<?=$data['apellido'] ?>" name="apellido" class="form-control" placeholder="Apellidos">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="staticEmail"
+                                        <input type="text" value="<?=$data['correo'] ?>" name="correo" class="form-control" id="staticEmail"
                                             placeholder="email@example.com">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                                     <div class="col-sm-10">
-                                        <input type="password" class="form-control" id="inputPassword"
+                                        <input type="password" value="<?=$data['password'] ?>" name="password" class="form-control" id="inputPassword"
                                             placeholder="Password">
                                     </div>
                                 </div>
@@ -181,7 +194,13 @@ if(isset($_POST['correo']) && isset($_POST['password']))
      $(function() {
         $("form[name='registro-formulario']").validate({
             rules: {
-                login: {
+                nombre: {
+                    required: true,
+                },
+                apellido: {
+                    required: true,
+                },
+                correo: {
                     required: true,
                 },
                 password:  {
@@ -190,7 +209,13 @@ if(isset($_POST['correo']) && isset($_POST['password']))
                 },
             },
             messages: {
-                login: {
+                nombre: {
+                    required: "Por favor ingrese el nombre de usuario",
+                },
+                apellido: {
+                    required: "Por favor ingrese el nombre de usuario",
+                },
+                correo: {
                     required: "Por favor ingrese el nombre de usuario",
                 },
                 password: {
